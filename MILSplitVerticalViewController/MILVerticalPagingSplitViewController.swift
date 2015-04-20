@@ -217,7 +217,10 @@ class VerticalPagingSplitViewController: UIViewController {
         
         super.viewDidLoad()
         
-        self.navigationController?.setNavigationBarHidden(true, animated: false)
+        hideNavigationBar()
+    func hideNavigationBar() {
+       self.navigationController?.setNavigationBarHidden(true, animated: false)
+    }
         
         // Setup container views
         leftContainerView = UIView()
