@@ -29,7 +29,6 @@ class VerticalPagingSplitViewController: UIViewController {
     var downDirectionEndFrame: CGRect!
     // Gesture Recognition
     var swipe = false
-    var direction = Direction.Up
     var side = Side.Left
     var containerForGesture: UIView?
     var indexForGesture: Int?
@@ -72,13 +71,7 @@ class VerticalPagingSplitViewController: UIViewController {
         var resetTranslation = true
         
         // Get the direction of this pan gesture
-        if sender.velocityInView(self.view).y > 0 {
-            direction = Direction.Up
-        }
-        
-        else {
-            direction = Direction.Down
-        }
+        let direction = (sender.velocityInView(self.view).y > 0) ? Direction.Up : Direction.Down
         
         // Detect if this gesture is moving very quickly (might be a swipe)
         if abs(sender.velocityInView(self.view).y) > 1000 {
