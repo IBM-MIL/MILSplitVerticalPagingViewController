@@ -153,14 +153,12 @@ class VerticalPagingSplitViewController: UIViewController {
     // - Start the transistion to that view controller
     // - When the gesture ends, determine which view controller to completely transistion to
     @IBAction func PanGestureRecognized(sender: UIPanGestureRecognizer) {
-        
+
         let halfwayMark = self.view.frame.size.height / 2
         var resetTranslation = true
-        
-        // Get the direction of this pan gesture
-        let direction = (sender.velocityInView(self.view).y > 0) ? Direction.Up : Direction.Down
-        
-        let swipe = determineSwipeDirection(sender)
+
+        let direction = (sender.velocityInView(self.view).y > 0) ? Direction.Up : Direction.Down        // Get the direction of this pan gesture
+        let swipe = determineSwipeDirection(sender)                                                     // are we actually swiping (no if user slows down)
         
         // On start, create the view controllers above and below the current view controller
         if sender.state == UIGestureRecognizerState.Began {
