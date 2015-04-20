@@ -161,7 +161,7 @@ class VerticalPagingSplitViewController: UIViewController {
         let halfwayMark = self.view.frame.size.height / 2
 
         let direction = (sender.velocityInView(self.view).y > 0) ? Direction.Up : Direction.Down        // Get the direction of this pan gesture
-        let swipe = determineSwipeDirection(sender)                                                     // are we actually swiping (no if user slows down)
+        var shouldCompleteSwipe = determineShouldSwipe(sender)                                          // are we actually swiping (no if user slows down)
         
         // On start, create the view controllers above and below the current view controller
         if sender.state == UIGestureRecognizerState.Began {
@@ -366,21 +366,28 @@ class VerticalPagingSplitViewController: UIViewController {
 
     }
     
-    private func determineSwipeDirection(sender: UIPanGestureRecognizer) -> Bool {
+    private func determineShouldSwipe(sender: UIPanGestureRecognizer) -> Bool {
+        
+        var returnBool : Bool = false
         
         // Detect if this gesture is moving very quickly (might be a swipe)
         if abs(sender.velocityInView(self.view).y) > 1000 {
-            swipe = true
+            returnBool = true
         }
             
+        // Cancel a swipe if the gesture slows down a lot
         else if abs(sender.velocityInView(self.view).y) < 200 {
-            // Cancel a swipe if the gesture slows down a lot
-            swipe = false
+            returnBool = false
+        }
+        
+        return returnBool
+        
+    }
+    
         }
         
     }
     
-    // Helper for PanGestureRecognized method
     // Called when a gesture ends to transistion from one view controller to another.
     private func moveFromViewController(vc: UIViewController, toViewController: UIViewController, direction: Direction, side: Side) {
         
