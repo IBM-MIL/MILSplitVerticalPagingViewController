@@ -7,33 +7,27 @@ import UIKit
 
 class VerticalPagingSplitViewController: UIViewController {
     
-    //////////////////////////////////////////////////////////////////////////////////
+    // Vars
     // These are the variables you should change to customize this view controller.
-    //////////////////////////////////////////////////////////////////////////////////
     var currentLeftVCIndex = 1
     var currentRightVCIndex = 1
     var leftViewControllers = ["LeftViewController1", "LeftViewController2", "LeftViewController3"]
     var rightViewControllers = ["RightViewController1", "RightViewController2", "RightViewController3"]
-    
-    //////////////////////////////////////////////////////////////////////////////////
     // These the two view controllers being currently displayed. This is what you should access to 
     // send data/info to and from the two displayed view controllers
-    //////////////////////////////////////////////////////////////////////////////////
     var currentLeftVC: UIViewController?
     var currentRightVC: UIViewController?
-    
-    //////////////////////////////////////////////////////////////////////////////////
     // Probably shouldn't mess with any of this.
-    //////////////////////////////////////////////////////////////////////////////////
     var leftContainerView: UIView!
     var rightContainerView: UIView!
     var panGesture: UIPanGestureRecognizer!
     var belowVC: UIViewController?
     var aboveVC: UIViewController?
-    
+    // Frames
     var upDirectionEndFrame: CGRect!
     var normalEndFrame: CGRect!
     var downDirectionEndFrame: CGRect!
+    // Gesture Recognition
     var swipe = false
     var direction = Direction.Up
     var side = Side.Left
@@ -44,17 +38,29 @@ class VerticalPagingSplitViewController: UIViewController {
     var canGoToAboveVC = true
     var canGoToBelowVC = true
     
+    
+    // Enums
     enum Direction {
+        
         case Up
         case Down
+        
     }
     
     enum Side {
+        
         case Left
         case Right
+        
     }
     
+    
+    // Type Methods
+    
+    
+    // Instance Methods
     override func viewDidLoad() {
+        
         super.viewDidLoad()
         self.navigationController?.setNavigationBarHidden(true, animated: false)
         
@@ -77,10 +83,12 @@ class VerticalPagingSplitViewController: UIViewController {
         
         currentRightVC = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle()).instantiateViewControllerWithIdentifier(rightViewControllers[currentRightVCIndex]) as? UIViewController
         displayContentController(currentRightVC!, inContainerView: rightContainerView)
+        
     }
     
     // Sets constraints on the two container views so that they are of equal widths on the screen
     func setupLayoutConstraints() {
+        
         self.view.removeConstraints(self.view.constraints())
         var viewsDictionary = Dictionary <String, UIView>()
         viewsDictionary["leftContainerView"] = leftContainerView
@@ -90,14 +98,17 @@ class VerticalPagingSplitViewController: UIViewController {
         self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|[leftContainerView]|", options: nil, metrics: nil, views: viewsDictionary))
         self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|[rightContainerView]|", options: nil, metrics: nil, views: viewsDictionary))
         self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|[leftContainerView][rightContainerView]|", options: nil, metrics: nil, views: viewsDictionary))
+        
     }
     
     // Used to setup the two initial view controllers
     func displayContentController(content: UIViewController, inContainerView: UIView) {
+        
         addChildViewController(content)
         content.view.frame = CGRect(x:0, y: 0, width: inContainerView.frame.size.width, height: inContainerView.frame.size.height)
         inContainerView.addSubview(content.view)
         content.didMoveToParentViewController(self)
+        
     }
     
     // This function does a lot of stuff, and gets pretty crazy. But the gist of it is this:
@@ -290,8 +301,11 @@ class VerticalPagingSplitViewController: UIViewController {
                     vc.removeFromParentViewController()
                     toViewController.didMoveToParentViewController(self)
             })
+            
         }
+        
     }
+    
 }
 
 
