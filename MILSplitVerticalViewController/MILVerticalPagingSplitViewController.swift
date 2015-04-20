@@ -309,12 +309,12 @@ class VerticalPagingSplitViewController: UIViewController {
 
     }
     
-    func hideNavigationBar() {
+    private func hideNavigationBar() {
        self.navigationController?.setNavigationBarHidden(true, animated: false)
     }
     
     // init, setAutoResizingMask, addSubView
-    func configureContainerViews() {
+    private func configureContainerViews() {
         
         leftContainerView = UIView()
         rightContainerView = UIView()
@@ -327,12 +327,12 @@ class VerticalPagingSplitViewController: UIViewController {
         
     }
     
-    func removeOldConstraints() {
+    private func removeOldConstraints() {
         self.view.removeConstraints(self.view.constraints())
     }
     
     // Sets constraints on the two container views so that they are of equal widths on the screen
-    func setupLayoutConstraints() {
+    private func setupLayoutConstraints() {
 
         var viewsDictionary = ["leftContainerView" : leftContainerView, "rightContainerView": rightContainerView]
         
@@ -352,7 +352,7 @@ class VerticalPagingSplitViewController: UIViewController {
         
     }
     
-    func setupPanGesture() {
+    private func setupPanGesture() {
         
         panGesture = UIPanGestureRecognizer(target: self, action: Selector("PanGestureRecognized:"))
         view.addGestureRecognizer(panGesture)
@@ -360,7 +360,7 @@ class VerticalPagingSplitViewController: UIViewController {
     }
     
     // Create initial left and right view controllers
-    func configureLeftAndRightViewControllers() {
+    private func configureLeftAndRightViewControllers() {
         
         currentLeftVC = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle()).instantiateViewControllerWithIdentifier(leftViewControllers[currentLeftVCIndex]) as? UIViewController
         currentRightVC = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle()).instantiateViewControllerWithIdentifier(rightViewControllers[currentRightVCIndex]) as? UIViewController
@@ -375,7 +375,7 @@ class VerticalPagingSplitViewController: UIViewController {
     
     
     // Used to setup the two initial view controllers
-    func displayContentController(content: UIViewController, inContainerView: UIView) {
+    private func displayContentController(content: UIViewController, inContainerView: UIView) {
         
         addChildViewController(content)
         content.view.frame = CGRect(x:0, y: 0, width: inContainerView.frame.size.width, height: inContainerView.frame.size.height)
@@ -385,7 +385,7 @@ class VerticalPagingSplitViewController: UIViewController {
     }
     
     // Called when a gesture ends to transistion from one view controller to another.
-    func moveFromViewController(vc: UIViewController, toViewController: UIViewController, direction: Direction, side: Side) {
+    private func moveFromViewController(vc: UIViewController, toViewController: UIViewController, direction: Direction, side: Side) {
         vc.willMoveToParentViewController(nil)
         if direction == .Up {
             self.transitionFromViewController(vc, toViewController: toViewController, duration: 0.4, options: UIViewAnimationOptions.CurveEaseOut, animations: { () -> Void in
