@@ -155,7 +155,6 @@ class VerticalPagingSplitViewController: UIViewController {
     @IBAction func PanGestureRecognized(sender: UIPanGestureRecognizer) {
 
         let halfwayMark = self.view.frame.size.height / 2
-        var resetTranslation = true
 
         let direction = (sender.velocityInView(self.view).y > 0) ? Direction.Up : Direction.Down        // Get the direction of this pan gesture
         let swipe = determineSwipeDirection(sender)                                                     // are we actually swiping (no if user slows down)
@@ -359,9 +358,9 @@ class VerticalPagingSplitViewController: UIViewController {
             
         }
         
-        if resetTranslation {
-            sender.setTranslation(CGPointZero, inView: self.view)
-        }
+        resetTranslation()
+        
+        
         
     }
     
@@ -431,7 +430,11 @@ class VerticalPagingSplitViewController: UIViewController {
         }
         
     }
-    
+
+    private func resetTranslation() {
+        sender.setTranslation(CGPointZero, inView: self.view)
+    }
+
 }
 
 
