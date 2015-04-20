@@ -370,10 +370,6 @@ class VerticalPagingSplitViewController: UIViewController {
         
     }
     
-    
-    // All other methods
-    
-    
     // Used to setup the two initial view controllers
     private func displayContentController(content: UIViewController, inContainerView: UIView) {
         
@@ -387,16 +383,25 @@ class VerticalPagingSplitViewController: UIViewController {
     }
     
     
+    // All other methods
+    // Helper for PanGestureRecognized method
     // Called when a gesture ends to transistion from one view controller to another.
     private func moveFromViewController(vc: UIViewController, toViewController: UIViewController, direction: Direction, side: Side) {
         
         vc.willMoveToParentViewController(nil)
         
         if direction == .Up {
-            self.transitionFromViewController(vc, toViewController: toViewController, duration: 0.4, options: UIViewAnimationOptions.CurveEaseOut, animations: { () -> Void in
-                toViewController.view.frame = self.normalEndFrame
-                vc.view.frame = self.downDirectionEndFrame
-                }, completion:{ (finished: Bool) -> Void in
+            
+            self.transitionFromViewController(
+                vc,
+                toViewController: toViewController,
+                duration: 0.4,
+                options: UIViewAnimationOptions.CurveEaseOut,
+                animations: { () -> Void in
+                    toViewController.view.frame = self.normalEndFrame
+                    vc.view.frame = self.downDirectionEndFrame
+                },
+                completion:{ (finished: Bool) -> Void in
                     if self.currentVCForGesture != toViewController {
                         if side == .Left {
                             self.currentLeftVCIndex -= 1
