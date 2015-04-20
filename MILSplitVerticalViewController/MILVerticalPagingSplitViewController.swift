@@ -169,72 +169,7 @@ class VerticalPagingSplitViewController: UIViewController {
         }
             
         else if sender.state == UIGestureRecognizerState.Ended {
-            
-            // When the gesture ends, determine which view controller that needs to become the current view controller and finish the transistion
-            var resetToCurrentVC = false
-            
-            if shouldCompleteSwipe {
-                
-                if direction == .Down && canGoToBelowVC {
-                    moveFromViewController(currentVCForGesture!, toViewController: belowVC!, direction: direction, side: side)
-                    aboveVC?.willMoveToParentViewController(nil)
-                    aboveVC?.removeFromParentViewController()
-                }
-                    
-                else if direction == .Up && canGoToAboveVC {
-                    moveFromViewController(currentVCForGesture!, toViewController: aboveVC!, direction: direction, side: side)
-                    belowVC?.willMoveToParentViewController(nil)
-                    belowVC?.removeFromParentViewController()
-                }
-                    
-                else {
-                    resetToCurrentVC = true
-                }
-                
-                shouldCompleteSwipe = false
-                
-            }
-                
-            else {
-                
-                if currentVCForGesture!.view.frame.origin.y <= -halfwayMark {
-                    moveFromViewController(currentVCForGesture!, toViewController: belowVC!, direction: .Down, side: side)
-                    aboveVC?.willMoveToParentViewController(nil)
-                    aboveVC?.removeFromParentViewController()
-                }
-                    
-                else if currentVCForGesture!.view.frame.origin.y > halfwayMark {
-                    moveFromViewController(currentVCForGesture!, toViewController: aboveVC!, direction: .Up, side: side)
-                    belowVC?.willMoveToParentViewController(nil)
-                    belowVC?.removeFromParentViewController()
-                }
-                    
-                else {
-                    resetToCurrentVC = true
-                }
-                
-            }
-            
-            if resetToCurrentVC {
-                
-                if currentVCForGesture!.view.frame.origin.y > 0 {
-                    
-                    moveFromViewController(aboveVC!, toViewController: currentVCForGesture!, direction: .Down, side: side)
-                    belowVC?.willMoveToParentViewController(nil)
-                    belowVC?.removeFromParentViewController()
-                    
-                }
-                    
-                else if currentVCForGesture!.view.frame.origin.y < 0 {
-                    
-                    moveFromViewController(belowVC!, toViewController: currentVCForGesture!, direction: .Up, side: side)
-                    aboveVC?.willMoveToParentViewController(nil)
-                    aboveVC?.removeFromParentViewController()
-                    
-                }
-                
-            }
-            
+            handleUIGestureEnded(sender)
         }
             
         else {
@@ -384,6 +319,75 @@ class VerticalPagingSplitViewController: UIViewController {
             
         else {
             aboveVC = nil
+        }
+        
+    }
+    
+    private func handleUIGestureEnded(sender: UIPanGestureRecognizer) {
+        
+        // When the gesture ends, determine which view controller that needs to become the current view controller and finish the transistion
+        var resetToCurrentVC = false
+        
+        if shouldCompleteSwipe {
+            
+            if direction == .Down && canGoToBelowVC {
+                moveFromViewController(currentVCForGesture!, toViewController: belowVC!, direction: direction, side: side)
+                aboveVC?.willMoveToParentViewController(nil)
+                aboveVC?.removeFromParentViewController()
+            }
+                
+            else if direction == .Up && canGoToAboveVC {
+                moveFromViewController(currentVCForGesture!, toViewController: aboveVC!, direction: direction, side: side)
+                belowVC?.willMoveToParentViewController(nil)
+                belowVC?.removeFromParentViewController()
+            }
+                
+            else {
+                resetToCurrentVC = true
+            }
+            
+            shouldCompleteSwipe = false
+            
+        }
+            
+        else {
+            
+            if currentVCForGesture!.view.frame.origin.y <= -halfwayMark {
+                moveFromViewController(currentVCForGesture!, toViewController: belowVC!, direction: .Down, side: side)
+                aboveVC?.willMoveToParentViewController(nil)
+                aboveVC?.removeFromParentViewController()
+            }
+                
+            else if currentVCForGesture!.view.frame.origin.y > halfwayMark {
+                moveFromViewController(currentVCForGesture!, toViewController: aboveVC!, direction: .Up, side: side)
+                belowVC?.willMoveToParentViewController(nil)
+                belowVC?.removeFromParentViewController()
+            }
+                
+            else {
+                resetToCurrentVC = true
+            }
+            
+        }
+        
+        if resetToCurrentVC {
+            
+            if currentVCForGesture!.view.frame.origin.y > 0 {
+                
+                moveFromViewController(aboveVC!, toViewController: currentVCForGesture!, direction: .Down, side: side)
+                belowVC?.willMoveToParentViewController(nil)
+                belowVC?.removeFromParentViewController()
+                
+            }
+                
+            else if currentVCForGesture!.view.frame.origin.y < 0 {
+                
+                moveFromViewController(belowVC!, toViewController: currentVCForGesture!, direction: .Up, side: side)
+                aboveVC?.willMoveToParentViewController(nil)
+                aboveVC?.removeFromParentViewController()
+                
+            }
+            
         }
         
     }
