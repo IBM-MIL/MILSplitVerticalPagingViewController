@@ -34,6 +34,15 @@ class VerticalPagingSplitViewController: UIViewController {
     var upDirectionEndFrame: CGRect!
     var normalEndFrame: CGRect!
     var downDirectionEndFrame: CGRect!
+    var swipe = false
+    var direction = Direction.Up
+    var side = Side.Left
+    var containerForGesture: UIView?
+    var indexForGesture: Int?
+    var arrayForGesture: [String]?
+    var currentVCForGesture: UIViewController?
+    var canGoToAboveVC = true
+    var canGoToBelowVC = true
     
     enum Direction {
         case Up
@@ -90,16 +99,6 @@ class VerticalPagingSplitViewController: UIViewController {
         inContainerView.addSubview(content.view)
         content.didMoveToParentViewController(self)
     }
-    
-    var swipe = false
-    var direction = Direction.Up
-    var side = Side.Left
-    var containerForGesture: UIView?
-    var indexForGesture: Int?
-    var arrayForGesture: [String]?
-    var currentVCForGesture: UIViewController?
-    var canGoToAboveVC = true
-    var canGoToBelowVC = true
     
     // This function does a lot of stuff, and gets pretty crazy. But the gist of it is this:
     // - Determine which side of the screen the pan is on
