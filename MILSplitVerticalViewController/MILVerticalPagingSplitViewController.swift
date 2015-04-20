@@ -170,47 +170,7 @@ class VerticalPagingSplitViewController: UIViewController {
         }
             
         else {
-            
-            // While the gesture is occuring, determine if we should move the view controllers along with it
-            var yOffset = sender.translationInView(self.view).y
-            var applyOffset = false
-            
-            if yOffset > 0 {
-                
-                if canGoToAboveVC || (currentVCForGesture!.view.frame.origin.y < 0) {
-                    
-                    applyOffset = true
-                    
-                    if (currentVCForGesture!.view.frame.origin.y < 0) && (currentVCForGesture!.view.frame.origin.y + yOffset > 0) {
-                        yOffset = -(currentVCForGesture!.view.frame.origin.y)
-                    }
-                    
-                }
-                
-            }
-                
-            else if yOffset < 0 {
-                
-                if canGoToBelowVC || (currentVCForGesture!.view.frame.origin.y > 0) {
-                    
-                    applyOffset = true
-                    
-                    if (currentVCForGesture!.view.frame.origin.y > 0) && (currentVCForGesture!.view.frame.origin.y + yOffset < 0) {
-                        yOffset = -currentVCForGesture!.view.frame.origin.y
-                    }
-                    
-                }
-                
-            }
-            
-            if applyOffset {
-                
-                currentVCForGesture!.view.frame.offset(dx: 0, dy: yOffset)
-                aboveVC?.view.frame.offset(dx: 0, dy: yOffset)
-                belowVC?.view.frame.offset(dx: 0, dy: yOffset)
-                
-            }
-            
+            handleUIGestureInProgress(sender)
         }
         
         resetTranslation(sender)
@@ -392,6 +352,50 @@ class VerticalPagingSplitViewController: UIViewController {
         
     }
 
+    private func handleUIGestureInProgress(sender: UIPanGestureRecognizer) {
+        
+        // While the gesture is occuring, determine if we should move the view controllers along with it
+        var yOffset = sender.translationInView(self.view).y
+        var applyOffset = false
+        
+        if yOffset > 0 {
+            
+            if canGoToAboveVC || (currentVCForGesture!.view.frame.origin.y < 0) {
+                
+                applyOffset = true
+                
+                if (currentVCForGesture!.view.frame.origin.y < 0) && (currentVCForGesture!.view.frame.origin.y + yOffset > 0) {
+                    yOffset = -(currentVCForGesture!.view.frame.origin.y)
+                }
+                
+            }
+            
+        }
+            
+        else if yOffset < 0 {
+            
+            if canGoToBelowVC || (currentVCForGesture!.view.frame.origin.y > 0) {
+                
+                applyOffset = true
+                
+                if (currentVCForGesture!.view.frame.origin.y > 0) && (currentVCForGesture!.view.frame.origin.y + yOffset < 0) {
+                    yOffset = -currentVCForGesture!.view.frame.origin.y
+                }
+                
+            }
+            
+        }
+        
+        if applyOffset {
+            
+            currentVCForGesture!.view.frame.offset(dx: 0, dy: yOffset)
+            aboveVC?.view.frame.offset(dx: 0, dy: yOffset)
+            belowVC?.view.frame.offset(dx: 0, dy: yOffset)
+            
+        }
+        
+    }
+    
     // Called when a gesture ends to transistion from one view controller to another.
     private func moveFromViewController(vc: UIViewController, toViewController: UIViewController, direction: Direction, side: Side) {
         
