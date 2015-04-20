@@ -28,7 +28,6 @@ class VerticalPagingSplitViewController: UIViewController {
     var normalEndFrame: CGRect!
     var downDirectionEndFrame: CGRect!
     // Gesture Recognition
-    var swipe = false
     var side = Side.Left
     var containerForGesture: UIView?
     var indexForGesture: Int?
@@ -73,15 +72,7 @@ class VerticalPagingSplitViewController: UIViewController {
         // Get the direction of this pan gesture
         let direction = (sender.velocityInView(self.view).y > 0) ? Direction.Up : Direction.Down
         
-        // Detect if this gesture is moving very quickly (might be a swipe)
-        if abs(sender.velocityInView(self.view).y) > 1000 {
-            swipe = true
-        }
-        
-        else if abs(sender.velocityInView(self.view).y) < 200 {
-            // Cancel a swipe if the gesture slows down a lot
-            swipe = false
-        }
+        let swipe = determineSwipeDirection(sender)
         
         // On start, create the view controllers above and below the current view controller
         if sender.state == UIGestureRecognizerState.Began {
@@ -288,6 +279,21 @@ class VerticalPagingSplitViewController: UIViewController {
         
     }
     
+    private func determineSwipeDirection(sender: UIPanGestureRecognizer) -> Bool {
+        
+        // Detect if this gesture is moving very quickly (might be a swipe)
+        if abs(sender.velocityInView(self.view).y) > 1000 {
+            swipe = true
+        }
+            
+        else if abs(sender.velocityInView(self.view).y) < 200 {
+            // Cancel a swipe if the gesture slows down a lot
+            swipe = false
+        }
+        
+    }
+
+
     // Init & Helpers
     override func viewDidLoad() {
         
