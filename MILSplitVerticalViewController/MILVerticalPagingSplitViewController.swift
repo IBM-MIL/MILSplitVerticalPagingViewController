@@ -165,9 +165,7 @@ class VerticalPagingSplitViewController: UIViewController {
         
         // On start, create the view controllers above and below the current view controller
         if sender.state == UIGestureRecognizerState.Began {
-            
             handleUIGestureBegan(sender)
-            
         }
             
         else if sender.state == UIGestureRecognizerState.Ended {
@@ -447,15 +445,3 @@ class VerticalPagingSplitViewController: UIViewController {
     }
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
