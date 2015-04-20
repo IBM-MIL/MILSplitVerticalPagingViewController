@@ -218,20 +218,26 @@ class VerticalPagingSplitViewController: UIViewController {
         super.viewDidLoad()
         
         hideNavigationBar()
+        configureContainerViews()
     func hideNavigationBar() {
        self.navigationController?.setNavigationBarHidden(true, animated: false)
     }
+    
+    // init, setAutoResizingMask, addSubView
+    func configureContainerViews() {
         
-        // Setup container views
         leftContainerView = UIView()
         rightContainerView = UIView()
+        
         leftContainerView.setTranslatesAutoresizingMaskIntoConstraints(false)
         rightContainerView.setTranslatesAutoresizingMaskIntoConstraints(false)
+        
         self.view.addSubview(leftContainerView)
         self.view.addSubview(rightContainerView)
         setupLayoutConstraints()
         
         // Setup Pan Gesture
+    }
         panGesture = UIPanGestureRecognizer(target: self, action: Selector("PanGestureRecognized:"))
         view.addGestureRecognizer(panGesture)
         
