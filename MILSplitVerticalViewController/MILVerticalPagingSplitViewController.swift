@@ -326,6 +326,23 @@ class VerticalPagingSplitViewController: UIViewController {
         
     }
     
+    // Sets constraints on the two container views so that they are of equal widths on the screen
+    func setupLayoutConstraints() {
+        
+        self.view.removeConstraints(self.view.constraints())
+        
+        var viewsDictionary = Dictionary <String, UIView>()
+        
+        viewsDictionary["leftContainerView"] = leftContainerView
+        viewsDictionary["rightContainerView"] = rightContainerView
+        
+        self.view.addConstraint(NSLayoutConstraint(item: self.leftContainerView, attribute: .Width, relatedBy: NSLayoutRelation.Equal, toItem: self.rightContainerView, attribute: .Width, multiplier: 1, constant: 0))
+        self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|[leftContainerView]|", options: nil, metrics: nil, views: viewsDictionary))
+        self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|[rightContainerView]|", options: nil, metrics: nil, views: viewsDictionary))
+        self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|[leftContainerView][rightContainerView]|", options: nil, metrics: nil, views: viewsDictionary))
+        
+    }
+    
     func setupPanGesture() {
         
         panGesture = UIPanGestureRecognizer(target: self, action: Selector("PanGestureRecognized:"))
@@ -346,20 +363,7 @@ class VerticalPagingSplitViewController: UIViewController {
     
     
     // All other methods
-    // Sets constraints on the two container views so that they are of equal widths on the screen
-    func setupLayoutConstraints() {
-        
-        self.view.removeConstraints(self.view.constraints())
-        var viewsDictionary = Dictionary <String, UIView>()
-        viewsDictionary["leftContainerView"] = leftContainerView
-        viewsDictionary["rightContainerView"] = rightContainerView
-        
-        self.view.addConstraint(NSLayoutConstraint(item: self.leftContainerView, attribute: .Width, relatedBy: NSLayoutRelation.Equal, toItem: self.rightContainerView, attribute: .Width, multiplier: 1, constant: 0))
-        self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|[leftContainerView]|", options: nil, metrics: nil, views: viewsDictionary))
-        self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|[rightContainerView]|", options: nil, metrics: nil, views: viewsDictionary))
-        self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|[leftContainerView][rightContainerView]|", options: nil, metrics: nil, views: viewsDictionary))
-        
-    }
+    
     
     // Used to setup the two initial view controllers
     func displayContentController(content: UIViewController, inContainerView: UIView) {
