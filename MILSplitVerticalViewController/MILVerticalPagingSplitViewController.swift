@@ -6,18 +6,18 @@ Licensed Materials - Property of IBM
 import UIKit
 
 class VerticalPagingSplitViewController: UIViewController {
-
+    
     // API
     // To populate the list of view controllers for each half of the SplitViewController, set the variables leftViewControllers and rightViewControllers to arrays of the Storyboard IDs wanted for each side:
     // To indicate which view controller should be initially shown, set the variables currentLeftVCIndex and currentRightVCIndex to the index of the view controller's storyboard ID:
-
+    
     // Vars
     // These are the variables you should change to customize this view controller.
     var currentLeftVCIndex = 1
     var currentRightVCIndex = 1
     var leftViewControllers = ["LeftViewController1", "LeftViewController2", "LeftViewController3"]
     var rightViewControllers = ["RightViewController1", "RightViewController2", "RightViewController3"]
-    // These the two view controllers being currently displayed. This is what you should access to 
+    // These the two view controllers being currently displayed. This is what you should access to
     // send data/info to and from the two displayed view controllers
     var currentLeftVC: UIViewController?
     var currentRightVC: UIViewController?
@@ -72,11 +72,11 @@ class VerticalPagingSplitViewController: UIViewController {
         setupLayoutConstraints()
         setupPanGesture()
         configureLeftAndRightViewControllers()
-
+        
     }
     
     private func hideNavigationBar() {
-       self.navigationController?.setNavigationBarHidden(true, animated: false)
+        self.navigationController?.setNavigationBarHidden(true, animated: false)
     }
     
     // init, setAutoResizingMask, addSubView
@@ -99,7 +99,7 @@ class VerticalPagingSplitViewController: UIViewController {
     
     // Sets constraints on the two container views so that they are of equal widths on the screen
     private func setupLayoutConstraints() {
-
+        
         var viewsDictionary = ["leftContainerView" : leftContainerView, "rightContainerView": rightContainerView]
         
         self.view.addConstraint(NSLayoutConstraint(
@@ -157,9 +157,9 @@ class VerticalPagingSplitViewController: UIViewController {
     // - Start the transistion to that view controller
     // - When the gesture ends, determine which view controller to completely transistion to
     @IBAction func PanGestureRecognized(sender: UIPanGestureRecognizer) {
-
+        
         let halfwayMark = self.view.frame.size.height / 2
-
+        
         let direction = (sender.velocityInView(self.view).y > 0) ? Direction.Up : Direction.Down        // Get the direction of this pan gesture
         var shouldCompleteSwipe = determineShouldSwipe(sender)                                          // are we actually swiping (no if user slows down)
         
@@ -215,9 +215,9 @@ class VerticalPagingSplitViewController: UIViewController {
             }
             
         }
-
+        
         resetTranslation(sender)
-
+        
     }
     
     private func determineShouldSwipe(sender: UIPanGestureRecognizer) -> Bool {
@@ -443,9 +443,9 @@ class VerticalPagingSplitViewController: UIViewController {
         }
         
     }
-
+    
     private func resetTranslation(sender: UIPanGestureRecognizer) {
         sender.setTranslation(CGPointZero, inView: self.view)
     }
-
+    
 }
