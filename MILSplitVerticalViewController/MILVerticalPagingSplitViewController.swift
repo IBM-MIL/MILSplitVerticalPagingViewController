@@ -158,7 +158,6 @@ class VerticalPagingSplitViewController: UIViewController {
     // - When the gesture ends, determine which view controller to completely transistion to
     @IBAction func PanGestureRecognized(sender: UIPanGestureRecognizer) {
         
-        let direction = (sender.velocityInView(self.view).y > 0) ? Direction.Up : Direction.Down        // Get the direction of this pan gesture
         var shouldCompleteSwipeOptional : Bool? = determineShouldSwipe(sender)                          // are we actually swiping (no if user slows down)
         
         // On start, create the view controllers above and below the current view controller
@@ -167,7 +166,7 @@ class VerticalPagingSplitViewController: UIViewController {
         }
             
         else if sender.state == UIGestureRecognizerState.Ended {
-            handleUIGestureEnded(sender, shouldCompleteSwipeOptional: &shouldCompleteSwipeOptional, direction: direction, halfwayMark: halfwayMark)
+            handleUIGestureEnded(sender, shouldCompleteSwipeOptional: &shouldCompleteSwipeOptional, halfwayMark: halfwayMark)
         }
             
         else {
@@ -227,7 +226,7 @@ class VerticalPagingSplitViewController: UIViewController {
             returnBool = true
         }
             
-        // Cancel a swipe if the gesture slows down a lot
+            // Cancel a swipe if the gesture slows down a lot
         else if abs(sender.velocityInView(self.view).y) < 200 {
             returnBool = false
         }
@@ -321,8 +320,9 @@ class VerticalPagingSplitViewController: UIViewController {
         
     }
     
-    private func handleUIGestureEnded(sender: UIPanGestureRecognizer, inout shouldCompleteSwipeOptional: Bool?, direction: Direction) {
+    private func handleUIGestureEnded(sender: UIPanGestureRecognizer, inout shouldCompleteSwipeOptional: Bool?) {
         
+        let direction = (sender.velocityInView(self.view).y > 0) ? Direction.Up : Direction.Down        // Get the direction of this pan gesture
         let halfwayMark = self.view.frame.size.height / 2
         
         // When the gesture ends, determine which view controller that needs to become the current view controller and finish the transistion
@@ -367,11 +367,11 @@ class VerticalPagingSplitViewController: UIViewController {
             else {
                 resetToCurrentVC = true
             }
-            
+
         }
         
         if resetToCurrentVC {
-            
+
             if currentVCForGesture!.view.frame.origin.y > 0 {
                 
                 moveFromViewController(aboveVC!, toViewController: currentVCForGesture!, direction: .Down, side: side)
@@ -391,7 +391,7 @@ class VerticalPagingSplitViewController: UIViewController {
         }
         
     }
-    
+
     // Called when a gesture ends to transistion from one view controller to another.
     private func moveFromViewController(vc: UIViewController, toViewController: UIViewController, direction: Direction, side: Side) {
         
