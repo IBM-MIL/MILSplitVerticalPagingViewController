@@ -59,58 +59,7 @@ class VerticalPagingSplitViewController: UIViewController {
     
     
     // Instance Methods
-    override func viewDidLoad() {
-        
-        super.viewDidLoad()
-        self.navigationController?.setNavigationBarHidden(true, animated: false)
-        
-        // Setup container views
-        leftContainerView = UIView()
-        rightContainerView = UIView()
-        leftContainerView.setTranslatesAutoresizingMaskIntoConstraints(false)
-        rightContainerView.setTranslatesAutoresizingMaskIntoConstraints(false)
-        self.view.addSubview(leftContainerView)
-        self.view.addSubview(rightContainerView)
-        setupLayoutConstraints()
-        
-        // Setup Pan Gesture
-        panGesture = UIPanGestureRecognizer(target: self, action: Selector("PanGestureRecognized:"))
-        view.addGestureRecognizer(panGesture)
-        
-        // Create initial left and right view controllers
-        currentLeftVC = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle()).instantiateViewControllerWithIdentifier(leftViewControllers[currentLeftVCIndex]) as? UIViewController
-        displayContentController(currentLeftVC!, inContainerView: leftContainerView)
-        
-        currentRightVC = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle()).instantiateViewControllerWithIdentifier(rightViewControllers[currentRightVCIndex]) as? UIViewController
-        displayContentController(currentRightVC!, inContainerView: rightContainerView)
-        
-    }
-    
-    // Sets constraints on the two container views so that they are of equal widths on the screen
-    func setupLayoutConstraints() {
-        
-        self.view.removeConstraints(self.view.constraints())
-        var viewsDictionary = Dictionary <String, UIView>()
-        viewsDictionary["leftContainerView"] = leftContainerView
-        viewsDictionary["rightContainerView"] = rightContainerView
-        
-        self.view.addConstraint(NSLayoutConstraint(item: self.leftContainerView, attribute: .Width, relatedBy: NSLayoutRelation.Equal, toItem: self.rightContainerView, attribute: .Width, multiplier: 1, constant: 0))
-        self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|[leftContainerView]|", options: nil, metrics: nil, views: viewsDictionary))
-        self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|[rightContainerView]|", options: nil, metrics: nil, views: viewsDictionary))
-        self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|[leftContainerView][rightContainerView]|", options: nil, metrics: nil, views: viewsDictionary))
-        
-    }
-    
-    // Used to setup the two initial view controllers
-    func displayContentController(content: UIViewController, inContainerView: UIView) {
-        
-        addChildViewController(content)
-        content.view.frame = CGRect(x:0, y: 0, width: inContainerView.frame.size.width, height: inContainerView.frame.size.height)
-        inContainerView.addSubview(content.view)
-        content.didMoveToParentViewController(self)
-        
-    }
-    
+    // Action Methods
     // This function does a lot of stuff, and gets pretty crazy. But the gist of it is this:
     // - Determine which side of the screen the pan is on
     // - Determine the direction and whether or not we want to count it as a swipe
@@ -261,6 +210,62 @@ class VerticalPagingSplitViewController: UIViewController {
         if resetTranslation {
             sender.setTranslation(CGPointZero, inView: self.view)
         }
+    }
+    
+    // Init & Helpers
+    override func viewDidLoad() {
+        
+        super.viewDidLoad()
+        
+        self.navigationController?.setNavigationBarHidden(true, animated: false)
+        
+        // Setup container views
+        leftContainerView = UIView()
+        rightContainerView = UIView()
+        leftContainerView.setTranslatesAutoresizingMaskIntoConstraints(false)
+        rightContainerView.setTranslatesAutoresizingMaskIntoConstraints(false)
+        self.view.addSubview(leftContainerView)
+        self.view.addSubview(rightContainerView)
+        setupLayoutConstraints()
+        
+        // Setup Pan Gesture
+        panGesture = UIPanGestureRecognizer(target: self, action: Selector("PanGestureRecognized:"))
+        view.addGestureRecognizer(panGesture)
+        
+        // Create initial left and right view controllers
+        currentLeftVC = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle()).instantiateViewControllerWithIdentifier(leftViewControllers[currentLeftVCIndex]) as? UIViewController
+        displayContentController(currentLeftVC!, inContainerView: leftContainerView)
+        
+        currentRightVC = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle()).instantiateViewControllerWithIdentifier(rightViewControllers[currentRightVCIndex]) as? UIViewController
+        displayContentController(currentRightVC!, inContainerView: rightContainerView)
+        
+    }
+    
+    
+    // All other methods
+    // Sets constraints on the two container views so that they are of equal widths on the screen
+    func setupLayoutConstraints() {
+        
+        self.view.removeConstraints(self.view.constraints())
+        var viewsDictionary = Dictionary <String, UIView>()
+        viewsDictionary["leftContainerView"] = leftContainerView
+        viewsDictionary["rightContainerView"] = rightContainerView
+        
+        self.view.addConstraint(NSLayoutConstraint(item: self.leftContainerView, attribute: .Width, relatedBy: NSLayoutRelation.Equal, toItem: self.rightContainerView, attribute: .Width, multiplier: 1, constant: 0))
+        self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|[leftContainerView]|", options: nil, metrics: nil, views: viewsDictionary))
+        self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|[rightContainerView]|", options: nil, metrics: nil, views: viewsDictionary))
+        self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|[leftContainerView][rightContainerView]|", options: nil, metrics: nil, views: viewsDictionary))
+        
+    }
+    
+    // Used to setup the two initial view controllers
+    func displayContentController(content: UIViewController, inContainerView: UIView) {
+        
+        addChildViewController(content)
+        content.view.frame = CGRect(x:0, y: 0, width: inContainerView.frame.size.width, height: inContainerView.frame.size.height)
+        inContainerView.addSubview(content.view)
+        content.didMoveToParentViewController(self)
+        
     }
     
     // Called when a gesture ends to transistion from one view controller to another.
