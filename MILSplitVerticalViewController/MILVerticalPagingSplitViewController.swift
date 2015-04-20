@@ -302,6 +302,7 @@ class VerticalPagingSplitViewController: UIViewController {
         
         hideNavigationBar()
         configureContainerViews()
+        removeOldConstraints()
         setupLayoutConstraints()
         setupPanGesture()
         configureLeftAndRightViewControllers()
@@ -326,11 +327,12 @@ class VerticalPagingSplitViewController: UIViewController {
         
     }
     
+    func removeOldConstraints() {
+        self.view.removeConstraints(self.view.constraints())
+    }
+    
     // Sets constraints on the two container views so that they are of equal widths on the screen
     func setupLayoutConstraints() {
-        
-        self.view.removeConstraints(self.view.constraints())
-        
         var viewsDictionary = Dictionary <String, UIView>()
         
         viewsDictionary["leftContainerView"] = leftContainerView
