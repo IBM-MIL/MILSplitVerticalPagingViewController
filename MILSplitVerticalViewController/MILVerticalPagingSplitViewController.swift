@@ -334,12 +334,7 @@ class VerticalPagingSplitViewController: UIViewController {
     // Sets constraints on the two container views so that they are of equal widths on the screen
     func setupLayoutConstraints() {
 
-        var viewsDictionary: [String : UIView] = [         // could do [:] but leaving types in for readability
-            
-            "leftContainerView" : leftContainerView,
-            "rightContainerView": rightContainerView
-            
-        ]
+        var viewsDictionary = ["leftContainerView" : leftContainerView, "rightContainerView": rightContainerView]
         
         self.view.addConstraint(NSLayoutConstraint(
             item: self.leftContainerView,
