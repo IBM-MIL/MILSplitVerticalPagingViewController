@@ -57,21 +57,6 @@ class VerticalPagingSplitViewController: UIViewController {
     
     
     // Instance Methods
-    private func determineSwipeDirection(sender: UIPanGestureRecognizer) -> Bool {
-        
-        // Detect if this gesture is moving very quickly (might be a swipe)
-        if abs(sender.velocityInView(self.view).y) > 1000 {
-            swipe = true
-        }
-            
-        else if abs(sender.velocityInView(self.view).y) < 200 {
-            // Cancel a swipe if the gesture slows down a lot
-            swipe = false
-        }
-        
-    }
-
-
     // Init & Helpers
     override func viewDidLoad() {
         
@@ -158,7 +143,6 @@ class VerticalPagingSplitViewController: UIViewController {
         content.didMoveToParentViewController(self)
         
     }
-    
     
     // All other methods
     // Action Methods
@@ -382,6 +366,21 @@ class VerticalPagingSplitViewController: UIViewController {
         }
         
     }
+    
+    private func determineSwipeDirection(sender: UIPanGestureRecognizer) -> Bool {
+        
+        // Detect if this gesture is moving very quickly (might be a swipe)
+        if abs(sender.velocityInView(self.view).y) > 1000 {
+            swipe = true
+        }
+            
+        else if abs(sender.velocityInView(self.view).y) < 200 {
+            // Cancel a swipe if the gesture slows down a lot
+            swipe = false
+        }
+        
+    }
+    
     // Helper for PanGestureRecognized method
     // Called when a gesture ends to transistion from one view controller to another.
     private func moveFromViewController(vc: UIViewController, toViewController: UIViewController, direction: Direction, side: Side) {
