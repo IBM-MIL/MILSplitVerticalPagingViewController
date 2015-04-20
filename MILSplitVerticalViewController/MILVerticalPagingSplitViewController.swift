@@ -378,15 +378,20 @@ class VerticalPagingSplitViewController: UIViewController {
     private func displayContentController(content: UIViewController, inContainerView: UIView) {
         
         addChildViewController(content)
+        
         content.view.frame = CGRect(x:0, y: 0, width: inContainerView.frame.size.width, height: inContainerView.frame.size.height)
         inContainerView.addSubview(content.view)
+        
         content.didMoveToParentViewController(self)
         
     }
     
+    
     // Called when a gesture ends to transistion from one view controller to another.
     private func moveFromViewController(vc: UIViewController, toViewController: UIViewController, direction: Direction, side: Side) {
+        
         vc.willMoveToParentViewController(nil)
+        
         if direction == .Up {
             self.transitionFromViewController(vc, toViewController: toViewController, duration: 0.4, options: UIViewAnimationOptions.CurveEaseOut, animations: { () -> Void in
                 toViewController.view.frame = self.normalEndFrame
