@@ -341,9 +341,18 @@ class VerticalPagingSplitViewController: UIViewController {
             
         ]
         
-        self.view.addConstraint(NSLayoutConstraint(item: self.leftContainerView, attribute: .Width, relatedBy: NSLayoutRelation.Equal, toItem: self.rightContainerView, attribute: .Width, multiplier: 1, constant: 0))
+        self.view.addConstraint(NSLayoutConstraint(
+            item: self.leftContainerView,
+            attribute: .Width,
+            relatedBy: NSLayoutRelation.Equal,
+            toItem: self.rightContainerView,
+            attribute: .Width,
+            multiplier: 1,
+            constant: 0))
+        
         self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|[leftContainerView]|", options: nil, metrics: nil, views: viewsDictionary))
         self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|[rightContainerView]|", options: nil, metrics: nil, views: viewsDictionary))
+        
         self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|[leftContainerView][rightContainerView]|", options: nil, metrics: nil, views: viewsDictionary))
         
     }
