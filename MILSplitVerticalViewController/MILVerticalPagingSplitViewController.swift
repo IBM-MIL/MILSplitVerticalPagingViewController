@@ -68,7 +68,7 @@ class VerticalPagingSplitViewController: UIViewController {
     // - When the gesture ends, determine which view controller to completely transistion to
     @IBAction func PanGestureRecognized(sender: UIPanGestureRecognizer) {
         
-        var halfwayMark = self.view.frame.size.height / 2
+        let halfwayMark = self.view.frame.size.height / 2
         var resetTranslation = true
         
         // Get the direction of this pan gesture
