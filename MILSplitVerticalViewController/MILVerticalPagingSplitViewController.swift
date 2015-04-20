@@ -166,86 +166,7 @@ class VerticalPagingSplitViewController: UIViewController {
         // On start, create the view controllers above and below the current view controller
         if sender.state == UIGestureRecognizerState.Began {
             
-            var startPoint = sender.locationOfTouch(0, inView: self.view)
-            
-            // Determine the side of the swipe
-            if startPoint.x < (self.view.frame.size.width / 2) {
-                
-                side = .Left
-                containerForGesture = leftContainerView
-                indexForGesture = currentLeftVCIndex
-                arrayForGesture = leftViewControllers
-                currentVCForGesture = currentLeftVC
-                
-            }
-                
-            else {
-                
-                side = .Right
-                containerForGesture = rightContainerView
-                indexForGesture = currentRightVCIndex
-                arrayForGesture = rightViewControllers
-                currentVCForGesture = currentRightVC
-                
-            }
-            
-            // Frames for view controllers
-            upDirectionEndFrame = CGRect(
-                x: 0,
-                y: -containerForGesture!.frame.size.height,
-                width: containerForGesture!.frame.size.width,
-                height: containerForGesture!.frame.size.height)
-            
-            normalEndFrame = CGRect(
-                x: 0,
-                y: 0,
-                width: containerForGesture!.frame.size.width,
-                height: containerForGesture!.frame.size.height)
-            
-            downDirectionEndFrame = CGRect(
-                x: 0,
-                y: containerForGesture!.frame.size.height,
-                width: containerForGesture!.frame.size.width,
-                height: containerForGesture!.frame.size.height)
-            
-            // Determine if we can create view controller above/below the moving view controller
-            canGoToAboveVC = true
-            canGoToBelowVC = true
-            
-            if indexForGesture == 0 {
-                canGoToAboveVC = false
-            }
-            
-            if indexForGesture == arrayForGesture!.count - 1 {
-                canGoToBelowVC = false
-            }
-            
-            // Create view controllers if possible and set above and below the current view controller
-            if canGoToBelowVC {
-                
-                belowVC = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle()).instantiateViewControllerWithIdentifier(arrayForGesture![indexForGesture! + 1]) as? UIViewController
-                self.addChildViewController(belowVC!)
-                containerForGesture!.addSubview(belowVC!.view)
-                belowVC!.view.frame = downDirectionEndFrame
-                
-            }
-                
-            else {
-                belowVC = nil
-            }
-            
-            if canGoToAboveVC {
-                
-                aboveVC = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle()).instantiateViewControllerWithIdentifier(arrayForGesture![indexForGesture! - 1]) as? UIViewController
-                self.addChildViewController(aboveVC!)
-                containerForGesture!.addSubview(aboveVC!.view)
-                aboveVC!.view.frame = upDirectionEndFrame
-                
-            }
-                
-            else {
-                aboveVC = nil
-            }
+            handleUIGestureBegan(sender)
             
         }
             
@@ -384,6 +305,87 @@ class VerticalPagingSplitViewController: UIViewController {
         
     }
     
+    private func handleUIGestureBegan(sender: UIPanGestureRecognizer) {
+        
+        var startPoint = sender.locationOfTouch(0, inView: self.view)
+        
+        // Determine the side of the swipe
+        if startPoint.x < (self.view.frame.size.width / 2) {
+            
+            side = .Left
+            containerForGesture = leftContainerView
+            indexForGesture = currentLeftVCIndex
+            arrayForGesture = leftViewControllers
+            currentVCForGesture = currentLeftVC
+            
+        }
+            
+        else {
+            
+            side = .Right
+            containerForGesture = rightContainerView
+            indexForGesture = currentRightVCIndex
+            arrayForGesture = rightViewControllers
+            currentVCForGesture = currentRightVC
+            
+        }
+        
+        // Frames for view controllers
+        upDirectionEndFrame = CGRect(
+            x: 0,
+            y: -containerForGesture!.frame.size.height,
+            width: containerForGesture!.frame.size.width,
+            height: containerForGesture!.frame.size.height)
+        
+        normalEndFrame = CGRect(
+            x: 0,
+            y: 0,
+            width: containerForGesture!.frame.size.width,
+            height: containerForGesture!.frame.size.height)
+        
+        downDirectionEndFrame = CGRect(
+            x: 0,
+            y: containerForGesture!.frame.size.height,
+            width: containerForGesture!.frame.size.width,
+            height: containerForGesture!.frame.size.height)
+        
+        // Determine if we can create view controller above/below the moving view controller
+        canGoToAboveVC = true
+        canGoToBelowVC = true
+        
+        if indexForGesture == 0 {
+            canGoToAboveVC = false
+        }
+        
+        if indexForGesture == arrayForGesture!.count - 1 {
+            canGoToBelowVC = false
+        }
+        
+        // Create view controllers if possible and set above and below the current view controller
+        if canGoToBelowVC {
+            
+            belowVC = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle()).instantiateViewControllerWithIdentifier(arrayForGesture![indexForGesture! + 1]) as? UIViewController
+            self.addChildViewController(belowVC!)
+            containerForGesture!.addSubview(belowVC!.view)
+            belowVC!.view.frame = downDirectionEndFrame
+            
+        }
+            
+        else {
+            belowVC = nil
+        }
+        
+        if canGoToAboveVC {
+            
+            aboveVC = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle()).instantiateViewControllerWithIdentifier(arrayForGesture![indexForGesture! - 1]) as? UIViewController
+            self.addChildViewController(aboveVC!)
+            containerForGesture!.addSubview(aboveVC!.view)
+            aboveVC!.view.frame = upDirectionEndFrame
+            
+        }
+            
+        else {
+            aboveVC = nil
         }
         
     }
