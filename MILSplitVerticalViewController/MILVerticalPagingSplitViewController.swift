@@ -221,6 +221,10 @@ class VerticalPagingSplitViewController: UIViewController {
         configureContainerViews()
         setupLayoutConstraints()
         setupPanGesture()
+        configureLeftAndRightViewControllers()
+
+    }
+    
     func hideNavigationBar() {
        self.navigationController?.setNavigationBarHidden(true, animated: false)
     }
@@ -245,8 +249,14 @@ class VerticalPagingSplitViewController: UIViewController {
         view.addGestureRecognizer(panGesture)
         
     }
+    
+    // Create initial left and right view controllers
+    func configureLeftAndRightViewControllers() {
         
+        currentLeftVC = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle()).instantiateViewControllerWithIdentifier(leftViewControllers[currentLeftVCIndex]) as? UIViewController
         currentRightVC = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle()).instantiateViewControllerWithIdentifier(rightViewControllers[currentRightVCIndex]) as? UIViewController
+        
+        displayContentController(currentLeftVC!, inContainerView: leftContainerView)
         displayContentController(currentRightVC!, inContainerView: rightContainerView)
         
     }
