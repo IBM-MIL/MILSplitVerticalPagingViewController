@@ -6,7 +6,11 @@ Licensed Materials - Property of IBM
 import UIKit
 
 class VerticalPagingSplitViewController: UIViewController {
-    
+
+    // API
+    // To populate the list of view controllers for each half of the SplitViewController, set the variables leftViewControllers and rightViewControllers to arrays of the Storyboard IDs wanted for each side:
+    // To indicate which view controller should be initially shown, set the variables currentLeftVCIndex and currentRightVCIndex to the index of the view controller's storyboard ID:
+
     // Vars
     // These are the variables you should change to customize this view controller.
     var currentLeftVCIndex = 1
