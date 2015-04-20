@@ -254,7 +254,7 @@ class VerticalPagingSplitViewController: UIViewController {
             // When the gesture ends, determine which view controller that needs to become the current view controller and finish the transistion
             var resetToCurrentVC = false
             
-            if swipe {
+            if shouldCompleteSwipe {
                 
                 if direction == .Down && canGoToBelowVC {
                     moveFromViewController(currentVCForGesture!, toViewController: belowVC!, direction: direction, side: side)
@@ -272,7 +272,7 @@ class VerticalPagingSplitViewController: UIViewController {
                     resetToCurrentVC = true
                 }
                 
-                swipe = false
+                shouldCompleteSwipe = false
                 
             }
                 
