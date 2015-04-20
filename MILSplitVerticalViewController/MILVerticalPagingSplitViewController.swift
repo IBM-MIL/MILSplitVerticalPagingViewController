@@ -323,7 +323,7 @@ class VerticalPagingSplitViewController: UIViewController {
         
     }
     
-    private func handleUIGestureEnded(sender: UIPanGestureRecognizer) {
+    private func handleUIGestureEnded(sender: UIPanGestureRecognizer, inout shouldCompleteSwipeOptional: Bool?, direction: Direction, halfwayMark: CGFloat) {
         
         // When the gesture ends, determine which view controller that needs to become the current view controller and finish the transistion
         var resetToCurrentVC = false
