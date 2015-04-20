@@ -361,11 +361,9 @@ class VerticalPagingSplitViewController: UIViewController {
             }
             
         }
-        
-        resetTranslation()
-        
-        
-        
+
+        resetTranslation(sender)
+
     }
     
     private func determineSwipeDirection(sender: UIPanGestureRecognizer) -> Bool {
@@ -435,7 +433,7 @@ class VerticalPagingSplitViewController: UIViewController {
         
     }
 
-    private func resetTranslation() {
+    private func resetTranslation(sender: UIPanGestureRecognizer) {
         sender.setTranslation(CGPointZero, inView: self.view)
     }
 
