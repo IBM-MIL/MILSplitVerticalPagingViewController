@@ -26,7 +26,17 @@ Simple copy `MILVerticalPagingSplitViewController.swift` into your Xcode project
         milVerticalPagingSplitVC.currentLeftVCIndex = 0
         milVerticalPagingSplitVC.currentRightVCIndex = 1
 
-In this example, the left half of the screen would initially display LeftViewController1, and the right half of the screen would display RightViewController2.  The app will crash if these indices are outside the bounds of the array
+In this example, the left half of the screen would initially display LeftViewController1, and the right half of the screen would display RightViewController2.  **The app will crash if these indices are outside the bounds of the array**
+
+### Storyboard Version
+|   |
+|---|
+| <img src="https://raw.githubusercontent.com/ruslan120101/MILSplitVerticalPagingViewController/master/demo%20images/1.%20Click.png" alt="Error loading image"/>  |
+| <img src="https://github.com/ruslan120101/MILSplitVerticalPagingViewController/blob/master/demo%20images/2.%20Type.png" alt="Error loading image"/>  |
+| <img src="https://github.com/ruslan120101/MILSplitVerticalPagingViewController/blob/master/demo%20images/3.%20Click.png" alt="Error loading image"/>  |
+| <img src="https://github.com/ruslan120101/MILSplitVerticalPagingViewController/blob/master/demo%20images/4.%20Type.png" alt="Error loading image"/>  |
+| <img src="https://github.com/ruslan120101/MILSplitVerticalPagingViewController/blob/master/demo%20images/5.%20Add%20in%20code.png" alt="Error loading image"/>  |
+
 
 
 ## Requirements
@@ -37,6 +47,8 @@ In this example, the left half of the screen would initially display LeftViewCon
 
 Created by [Sean Saathoff](https://github.com/sean86) from designs provided by [Paul Roth](https://dribbble.com/paulroth)
 at the [IBM Mobile Innovation Lab](http://www-969.ibm.com/innovation/milab/)
+
+Contributed to / refactored by [Ruslan Ardashev](https://github.com/ruslan120101) in spare time / as a Swift learning exercise
 
 ## License
 
