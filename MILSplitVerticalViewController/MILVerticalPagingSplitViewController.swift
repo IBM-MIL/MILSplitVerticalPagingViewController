@@ -166,7 +166,7 @@ class VerticalPagingSplitViewController: UIViewController {
         }
             
         else if sender.state == UIGestureRecognizerState.Ended {
-            handleUIGestureEnded(sender, shouldCompleteSwipeOptional: &shouldCompleteSwipeOptional, halfwayMark: halfwayMark)
+            handleUIGestureEnded(sender, shouldCompleteSwipeOptional: &shouldCompleteSwipeOptional)
         }
             
         else {
