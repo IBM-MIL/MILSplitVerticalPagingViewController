@@ -29,11 +29,14 @@ Simple copy `MILVerticalPagingSplitViewController.swift` into your Xcode project
 In this example, the left half of the screen would initially display LeftViewController1, and the right half of the screen would display RightViewController2.  **The app will crash if these indices are outside the bounds of the array**
 
 ### Storyboard Version
-1. ![Error loading image](https://raw.githubusercontent.com/ruslan120101/MILSplitVerticalPagingViewController/master/demo%20images/1.%20Click.png)
-2. ![Error loading image](https://github.com/ruslan120101/MILSplitVerticalPagingViewController/blob/master/demo%20images/2.%20Type.png)
-3. ![Error loading image](https://github.com/ruslan120101/MILSplitVerticalPagingViewController/blob/master/demo%20images/3.%20Click.png)
-4. ![Error loading image](https://github.com/ruslan120101/MILSplitVerticalPagingViewController/blob/master/demo%20images/4.%20Type.png)
-5. ![Error loading image](https://github.com/ruslan120101/MILSplitVerticalPagingViewController/blob/master/demo%20images/5.%20Add%20in%20code.png)
+|   |
+|---|
+| <img src="https://raw.githubusercontent.com/ruslan120101/MILSplitVerticalPagingViewController/master/demo%20images/1.%20Click.png" alt="Error loading image"/>  |
+| <img src="https://github.com/ruslan120101/MILSplitVerticalPagingViewController/blob/master/demo%20images/2.%20Type.png" alt="Error loading image"/>  |
+| <img src="https://github.com/ruslan120101/MILSplitVerticalPagingViewController/blob/master/demo%20images/3.%20Click.png" alt="Error loading image"/>  |
+| <img src="https://github.com/ruslan120101/MILSplitVerticalPagingViewController/blob/master/demo%20images/4.%20Type.png" alt="Error loading image"/>  |
+| <img src="https://github.com/ruslan120101/MILSplitVerticalPagingViewController/blob/master/demo%20images/5.%20Add%20in%20code.png" alt="Error loading image"/>  |
+
 
 
 ## Requirements
