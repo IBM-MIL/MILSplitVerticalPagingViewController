@@ -11,7 +11,6 @@
 		4420ED981AE59DA0008FEAFF /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4420ED971AE59DA0008FEAFF /* ViewController.swift */; };
 		4420ED9B1AE59DA0008FEAFF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4420ED991AE59DA0008FEAFF /* Main.storyboard */; };
 		4420ED9D1AE59DA0008FEAFF /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4420ED9C1AE59DA0008FEAFF /* Images.xcassets */; };
-		4420EDA01AE59DA0008FEAFF /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4420ED9E1AE59DA0008FEAFF /* LaunchScreen.xib */; };
 		4420EDAC1AE59DA0008FEAFF /* MILVerticalPagingSplitViewControllerTesterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4420EDAB1AE59DA0008FEAFF /* MILVerticalPagingSplitViewControllerTesterTests.swift */; };
 		4420EDB61AE59DC8008FEAFF /* MILVerticalPagingSplitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4420EDB51AE59DC8008FEAFF /* MILVerticalPagingSplitViewController.swift */; };
 		4420EDB71AE59DE8008FEAFF /* MILVerticalPagingSplitViewController.swift in Frameworks */ = {isa = PBXBuildFile; fileRef = 4420EDB51AE59DC8008FEAFF /* MILVerticalPagingSplitViewController.swift */; };
@@ -34,7 +33,6 @@
 		4420ED971AE59DA0008FEAFF /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		4420ED9A1AE59DA0008FEAFF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		4420ED9C1AE59DA0008FEAFF /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		4420ED9F1AE59DA0008FEAFF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		4420EDA51AE59DA0008FEAFF /* MILVerticalPagingSplitViewControllerTesterTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MILVerticalPagingSplitViewControllerTesterTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		4420EDAA1AE59DA0008FEAFF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4420EDAB1AE59DA0008FEAFF /* MILVerticalPagingSplitViewControllerTesterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MILVerticalPagingSplitViewControllerTesterTests.swift; sourceTree = "<group>"; };
@@ -86,7 +84,6 @@
 				4420ED971AE59DA0008FEAFF /* ViewController.swift */,
 				4420ED991AE59DA0008FEAFF /* Main.storyboard */,
 				4420ED9C1AE59DA0008FEAFF /* Images.xcassets */,
-				4420ED9E1AE59DA0008FEAFF /* LaunchScreen.xib */,
 				4420ED931AE59DA0008FEAFF /* Supporting Files */,
 			);
 			path = MILVerticalPagingSplitViewControllerTester;
@@ -198,7 +195,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				4420ED9B1AE59DA0008FEAFF /* Main.storyboard in Resources */,
-				4420EDA01AE59DA0008FEAFF /* LaunchScreen.xib in Resources */,
 				4420ED9D1AE59DA0008FEAFF /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -248,14 +244,6 @@
 				4420ED9A1AE59DA0008FEAFF /* Base */,
 			);
 			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
-		4420ED9E1AE59DA0008FEAFF /* LaunchScreen.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				4420ED9F1AE59DA0008FEAFF /* Base */,
-			);
-			name = LaunchScreen.xib;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
