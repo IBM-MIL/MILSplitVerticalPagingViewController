@@ -26,7 +26,9 @@ Simple copy `MILVerticalPagingSplitViewController.swift` into your Xcode project
         milVerticalPagingSplitVC.currentLeftVCIndex = 0
         milVerticalPagingSplitVC.currentRightVCIndex = 1
 
-In this example, the left half of the screen would initially display LeftViewController1, and the right half of the screen would display RightViewController2.  The app will crash if these indices are outside the bounds of the array
+In this example, the left half of the screen would initially display LeftViewController1, and the right half of the screen would display RightViewController2.  **The app will crash if these indices are outside the bounds of the array**
+
+
 
 
 ## Requirements
@@ -37,6 +39,8 @@ In this example, the left half of the screen would initially display LeftViewCon
 
 Created by [Sean Saathoff](https://github.com/sean86) from designs provided by [Paul Roth](https://dribbble.com/paulroth)
 at the [IBM Mobile Innovation Lab](http://www-969.ibm.com/innovation/milab/)
+
+Contributed to / refactored by [Ruslan Ardashev](https://github.com/ruslan120101) in spare time / as a Swift learning exercise
 
 ## License
 
