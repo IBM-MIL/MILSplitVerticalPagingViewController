@@ -15,8 +15,8 @@ class VerticalPagingSplitViewController: UIViewController {
     // These are the variables you should change to customize this view controller.
     var currentLeftVCIndex = 1
     var currentRightVCIndex = 1
-    var leftViewControllers = ["LeftViewController1", "LeftViewController2", "LeftViewController3"]
-    var rightViewControllers = ["RightViewController1", "RightViewController2", "RightViewController3"]
+    var leftViewControllers = ["left0", "left1", "left2", "left3"]
+    var rightViewControllers = ["right0", "right1", "right2"]
     // These the two view controllers being currently displayed. This is what you should access to
     // send data/info to and from the two displayed view controllers
     var currentLeftVC: UIViewController?
