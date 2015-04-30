@@ -6,14 +6,7 @@ Licensed Materials - Property of IBM
 import UIKit
 
 class VerticalPagingSplitViewController: UIViewController {
-    
-    //////////////////////////////////////////////////////////////////////////////////
-    // These are the variables you should change to customize this view controller.
-    //////////////////////////////////////////////////////////////////////////////////
-    var currentLeftVCIndex = 1
-    var currentRightVCIndex = 1
-    var leftViewControllers = ["LeftViewController1", "LeftViewController2", "LeftViewController3"]
-    var rightViewControllers = ["RightViewController1", "RightViewController2", "RightViewController3"]
+    let model = VerticalPagingSplitModel();
     
     //////////////////////////////////////////////////////////////////////////////////
     // These the two view controllers being currently displayed. This is what you should access to 
@@ -40,11 +33,6 @@ class VerticalPagingSplitViewController: UIViewController {
         case Down
     }
     
-    enum Side {
-        case Left
-        case Right
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationController?.setNavigationBarHidden(true, animated: false)
@@ -63,10 +51,10 @@ class VerticalPagingSplitViewController: UIViewController {
         view.addGestureRecognizer(panGesture)
         
         // Create initial left and right view controllers
-        currentLeftVC = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle()).instantiateViewControllerWithIdentifier(leftViewControllers[currentLeftVCIndex]) as? UIViewController
+        currentLeftVC = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle()).instantiateViewControllerWithIdentifier(model.getCurrentViewControllerIdentifier(VerticalPagingSplitModel.Side.Left)) as? UIViewController
         displayContentController(currentLeftVC!, inContainerView: leftContainerView)
         
-        currentRightVC = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle()).instantiateViewControllerWithIdentifier(rightViewControllers[currentRightVCIndex]) as? UIViewController
+        currentRightVC = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle()).instantiateViewControllerWithIdentifier(model.getCurrentViewControllerIdentifier(VerticalPagingSplitModel.Side.Right)) as? UIViewController
         displayContentController(currentRightVC!, inContainerView: rightContainerView)
     }
     
@@ -93,13 +81,12 @@ class VerticalPagingSplitViewController: UIViewController {
     
     var swipe = false
     var direction = Direction.Up
-    var side = Side.Left
+    var side = VerticalPagingSplitModel.Side.Left
     var containerForGesture: UIView?
-    var indexForGesture: Int?
-    var arrayForGesture: [String]?
     var currentVCForGesture: UIViewController?
     var canGoToAboveVC = true
     var canGoToBelowVC = true
+
     
     // This function does a lot of stuff, and gets pretty crazy. But the gist of it is this:
     // - Determine which side of the screen the pan is on
@@ -110,7 +97,6 @@ class VerticalPagingSplitViewController: UIViewController {
     @IBAction func PanGestureRecognized(sender: UIPanGestureRecognizer) {
         var halfwayMark = self.view.frame.size.height / 2
         var resetTranslation = true
-        
         
         // Get the direction of this pan gesture
         if sender.velocityInView(self.view).y > 0 {
@@ -133,37 +119,25 @@ class VerticalPagingSplitViewController: UIViewController {
             
             // Determine the side of the swipe
             if startPoint.x < (self.view.frame.size.width / 2) {
-                side = .Left
+                side = VerticalPagingSplitModel.Side.Left
                 containerForGesture = leftContainerView
-                indexForGesture = currentLeftVCIndex
-                arrayForGesture = leftViewControllers
                 currentVCForGesture = currentLeftVC
             } else {
-                side = .Right
+                side = VerticalPagingSplitModel.Side.Right
                 containerForGesture = rightContainerView
-                indexForGesture = currentRightVCIndex
-                arrayForGesture = rightViewControllers
                 currentVCForGesture = currentRightVC
             }
-            
+            canGoToAboveVC = !model.isFirstVC(side)
+            canGoToBelowVC = !model.isLastVC(side)
+
             // Frames for view controllers
             upDirectionEndFrame = CGRect(x: 0, y: -containerForGesture!.frame.size.height, width: containerForGesture!.frame.size.width, height: containerForGesture!.frame.size.height)
             normalEndFrame = CGRect(x: 0, y: 0, width: containerForGesture!.frame.size.width, height: containerForGesture!.frame.size.height)
             downDirectionEndFrame = CGRect(x: 0, y: containerForGesture!.frame.size.height, width: containerForGesture!.frame.size.width, height: containerForGesture!.frame.size.height)
             
-            // Determine if we can create view controller above/below the moving view controller
-            canGoToAboveVC = true
-            canGoToBelowVC = true
-            if indexForGesture == 0 {
-                canGoToAboveVC = false
-            }
-            if indexForGesture == arrayForGesture!.count - 1 {
-                canGoToBelowVC = false
-            }
-            
             // Create view controllers if possible and set above and below the current view controller
             if canGoToBelowVC {
-                belowVC = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle()).instantiateViewControllerWithIdentifier(arrayForGesture![indexForGesture! + 1]) as? UIViewController
+                belowVC = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle()).instantiateViewControllerWithIdentifier(model.getNextViewControllerIdentifier(side)) as? UIViewController
                 self.addChildViewController(belowVC!)
                 containerForGesture!.addSubview(belowVC!.view)
                 belowVC!.view.frame = downDirectionEndFrame
@@ -171,7 +145,7 @@ class VerticalPagingSplitViewController: UIViewController {
                 belowVC = nil
             }
             if canGoToAboveVC {
-                aboveVC = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle()).instantiateViewControllerWithIdentifier(arrayForGesture![indexForGesture! - 1]) as? UIViewController
+                aboveVC = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle()).instantiateViewControllerWithIdentifier(model.getPreviousViewControllerIdentifier(side)) as? UIViewController
                 self.addChildViewController(aboveVC!)
                 containerForGesture!.addSubview(aboveVC!.view)
                 aboveVC!.view.frame = upDirectionEndFrame
@@ -254,44 +228,35 @@ class VerticalPagingSplitViewController: UIViewController {
     }
     
     // Called when a gesture ends to transistion from one view controller to another.
-    func moveFromViewController(vc: UIViewController, toViewController: UIViewController, direction: Direction, side: Side) {
+    func moveFromViewController(vc: UIViewController, toViewController: UIViewController, direction: Direction, side: VerticalPagingSplitModel.Side) {
         vc.willMoveToParentViewController(nil)
+        let forward : Bool
+        let directionEndFrame : CGRect
         if direction == .Up {
-            self.transitionFromViewController(vc, toViewController: toViewController, duration: 0.4, options: UIViewAnimationOptions.CurveEaseOut, animations: { () -> Void in
+            forward = false
+            directionEndFrame = self.downDirectionEndFrame
+        }
+        else {
+            forward = true
+            directionEndFrame = self.upDirectionEndFrame
+        }
+        
+        self.transitionFromViewController(vc, toViewController: toViewController, duration: 0.4, options: UIViewAnimationOptions.CurveEaseOut, animations: { () -> Void in
                 toViewController.view.frame = self.normalEndFrame
-                vc.view.frame = self.downDirectionEndFrame
+                vc.view.frame = directionEndFrame
                 }, completion:{ (finished: Bool) -> Void in
                     if self.currentVCForGesture != toViewController {
+                        self.model.updateVC(side,forward: forward)
                         if side == .Left {
-                            self.currentLeftVCIndex -= 1
                             self.currentLeftVC = toViewController
                         } else {
-                            self.currentRightVCIndex -= 1
-                            self.currentRightVC = toViewController
-                        }
-                    }
-                    vc.removeFromParentViewController()
-                    toViewController.didMoveToParentViewController(self)
-            })
-        } else if direction == .Down {
-            self.transitionFromViewController(vc, toViewController: toViewController, duration: 0.4, options: UIViewAnimationOptions.CurveEaseOut, animations: { () -> Void in
-                toViewController.view.frame = self.normalEndFrame
-                vc.view.frame = self.upDirectionEndFrame
-                }, completion:{ (finished: Bool) -> Void in
-                    if self.currentVCForGesture != toViewController {
-                        if side == .Left {
-                            self.currentLeftVCIndex += 1
-                            self.currentLeftVC = toViewController
-                        } else {
-                            self.currentRightVCIndex += 1
                             self.currentRightVC = toViewController
                         }
                         
                     }
                     vc.removeFromParentViewController()
                     toViewController.didMoveToParentViewController(self)
-            })
-        }
+        })
     }
 }
 
