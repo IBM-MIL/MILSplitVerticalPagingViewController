@@ -13,10 +13,10 @@ class VerticalPagingSplitModel {
     //////////////////////////////////////////////////////////////////////////////
     // These are the variables you should change to customize the view controller.
     //////////////////////////////////////////////////////////////////////////////
-    var currentLeftVCIndex = 1
-    var currentRightVCIndex = 1
-    let leftViewControllers = ["LeftViewController1", "LeftViewController2", "LeftViewController3"]
-    let rightViewControllers = ["RightViewController1", "RightViewController2", "RightViewController3"]
+    private var currentLeftVCIndex = 1
+    private var currentRightVCIndex = 1
+    private let leftViewControllers = ["LeftViewController1", "LeftViewController2", "LeftViewController3"]
+    private let rightViewControllers = ["RightViewController1", "RightViewController2", "RightViewController3"]
 
     enum Side {
         case Left
