@@ -26,7 +26,8 @@ class VerticalPagingSplitViewControllerTests: XCTestCase {
         XCTAssertEqual("RightViewController3", vpsm.getNextViewControllerIdentifier(VerticalPagingSplitModel.Side.Right))
 
         //Check the previous right controller identifier
-        XCTAssertEqual("RightViewController1", vpsm.getPreviousViewControllerIdentifier(VerticalPagingSplitModel.Side.Right))
+        XCTAssertEqual("RightViewController1",
+            vpsm.getPreviousViewControllerIdentifier(VerticalPagingSplitModel.Side.Right))
     }
 
     func testUpdates()
